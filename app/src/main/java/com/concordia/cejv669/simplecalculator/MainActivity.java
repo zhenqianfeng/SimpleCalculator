@@ -1,5 +1,6 @@
 package com.concordia.cejv669.simplecalculator;
 
+
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -8,28 +9,38 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
+
+    final StringBuilder historylog= new StringBuilder();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         final TextView tv = findViewById(R.id.tv_display);
         final String operator = "";
+
 
         Button b0 = findViewById(R.id.btn_0);
         b0.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String str=tv.getText().toString();
-                if(str.length()>=11)
+                if(str.length()>=12) {
                     tv.setText(str);
+                    historylog.append(str);
+                }
                 else
-                    tv.setText(str+"0");
+                {
+                    tv.setText(str + "0");
+                    historylog.append(str + "0");
+                }
             }
         });
 
@@ -38,12 +49,17 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String str=tv.getText().toString();
-                if (str.equals("0"))
+                if (str.equals("0")) {
                     tv.setText("1");
-                else if(str.length()>=11)
+                    historylog.append("1");
+                }
+                else if(str.length()>=11) {
                     tv.setText(str);
-                else
-                    tv.setText(str+"1");
+                }
+                else {
+                    tv.setText(str + "1");
+                    historylog.append("1");
+                }
             }
         });
 
@@ -52,12 +68,16 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String str=tv.getText().toString();
-                if (str.equals("0"))
+                if (str.equals("0")){
                     tv.setText("2");
+                    historylog.append("2");
+                }
                 else if(str.length()>=11)
                     tv.setText(str);
-                else
-                    tv.setText(str+"2");
+                else{
+                    tv.setText(str + "2");
+                    historylog.append("2");
+                }
             }
         });
 
@@ -66,12 +86,16 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String str=tv.getText().toString();
-                if (str.equals("0"))
+                if (str.equals("0")) {
                     tv.setText("3");
+                    historylog.append("3");
+                }
                 else if(str.length()>=11)
                     tv.setText(str);
-                else
-                    tv.setText(str+"3");
+                else{
+                    tv.setText(str + "3");
+                    historylog.append("3");
+                }
             }
         });
 
@@ -80,12 +104,16 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String str=tv.getText().toString();
-                if (str.equals("0"))
+                if (str.equals("0")) {
                     tv.setText("4");
+                    historylog.append("4");
+                }
                 else if(str.length()>=11)
                     tv.setText(str);
-                else
-                    tv.setText(str+"4");
+                else{
+                    tv.setText(str + "4");
+                    historylog.append("4");
+                }
             }
         });
 
@@ -94,12 +122,16 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String str=tv.getText().toString();
-                if (str.equals("0"))
+                if (str.equals("0")) {
                     tv.setText("5");
+                    historylog.append("5");
+                }
                 else if(str.length()>=11)
                     tv.setText(str);
-                else
-                    tv.setText(str+"5");
+                else{
+                    tv.setText(str + "5");
+                    historylog.append("5");
+                }
             }
         });
 
@@ -108,12 +140,16 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String str=tv.getText().toString();
-                if (str.equals("0"))
+                if (str.equals("0")) {
                     tv.setText("6");
+                    historylog.append("6");
+                }
                 else if(str.length()>=11)
                     tv.setText(str);
-                else
-                    tv.setText(str+"6");
+                else{
+                    tv.setText(str + "6");
+                    historylog.append("6");
+                }
             }
         });
 
@@ -122,12 +158,16 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String str=tv.getText().toString();
-                if (str.equals("0"))
+                if (str.equals("0")) {
                     tv.setText("7");
+                    historylog.append("7");
+                }
                 else if(str.length()>=11)
                     tv.setText(str);
-                else
-                    tv.setText(str+"7");
+                else{
+                    tv.setText(str + "7");
+                    historylog.append("7");
+                }
             }
         });
 
@@ -136,12 +176,16 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String str=tv.getText().toString();
-                if (str.equals("0"))
+                if (str.equals("0")) {
                     tv.setText("8");
+                    historylog.append("8");
+                }
                 else if(str.length()>=11)
                     tv.setText(str);
-                else
-                    tv.setText(str+"8");
+                else{
+                    tv.setText(str + "8");
+                    historylog.append("8");
+                }
             }
         });
 
@@ -150,12 +194,16 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String str=tv.getText().toString();
-                if (str.equals("0"))
+                if (str.equals("0")) {
                     tv.setText("9");
+                    historylog.append("9");
+                }
                 else if(str.length()>=11)
                     tv.setText(str);
-                else
-                    tv.setText(str+"9");
+                else{
+                    tv.setText(str + "9");
+                    historylog.append("9");
+                }
             }
         });
 
@@ -166,8 +214,10 @@ public class MainActivity extends AppCompatActivity {
                 String str=tv.getText().toString();
                 if (str.contains(".")||str.length()>=11)
                     tv.setText(str);
-                else
-                    tv.setText(str+".");
+                else{
+                    tv.setText(str + ".");
+                    historylog.append(".");
+                }
             }
         });
 
@@ -177,9 +227,15 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String str=tv.getText().toString();
                 if (str.contains("-"))
-                    tv.setText(str.substring(1));
-                else
-                    tv.setText("-"+str);
+                {
+                    str = str.substring(1);
+                    tv.setText(str);
+                    historylog.append("\n" + str);
+                }
+                else {
+                    tv.setText("-" + str);
+                    historylog.append("\n-" + str);
+                }
             }
         });
 
@@ -218,16 +274,20 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String str = tv.getText().toString();
                 Double n1 = Double.parseDouble(str);
-                String tmp_operator = "+";
 
+                String tmp_operator = "+";
+                historylog.append("\n+");
+                tv.setText("");
             }
         });
+
 
         Button b_clear= findViewById(R.id.btn_clear);
         b_clear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 tv.setText("0");
+                historylog.append("\n(clear)\n");
             }
         });
 
@@ -261,12 +321,10 @@ public class MainActivity extends AppCompatActivity {
         if (itemId == R.id.history) {
 //            Toast.makeText(getApplicationContext(), "You Clicked on History", Toast.LENGTH_SHORT).show();
             Intent i = new Intent(getApplicationContext(), History.class);
+            i.putExtra("HistoryLog",historylog.toString());
+            String test = historylog.toString();
             startActivity(i);
         }
         return true;
     }
-
-
-
-
 }
