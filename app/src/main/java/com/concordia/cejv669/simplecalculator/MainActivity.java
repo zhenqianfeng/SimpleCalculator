@@ -16,6 +16,11 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity {
 
     final StringBuilder historylog= new StringBuilder();
+    Double[] number = new Double[2];
+    Integer[] i = new Integer[2];
+    String[] op = {""};
+    Boolean numinit = true;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,14 +37,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String str=tv.getText().toString();
-                if(str.length()>=12) {
-                    tv.setText(str);
-                    historylog.append(str);
-                }
-                else
+                if (!numinit)
                 {
-                    tv.setText(str + "0");
-                    historylog.append(str + "0");
+                    if (str.length() >= 12) {
+                        tv.setText(str);
+                        historylog.append(str);
+                    } else if (!str.equals("0")) {
+                        tv.setText(str + "0");
+                        historylog.append(str + "0");
+                    }
                 }
             }
         });
@@ -49,9 +55,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String str=tv.getText().toString();
-                if (str.equals("0")) {
+                if (numinit) {
                     tv.setText("1");
                     historylog.append("1");
+                    numinit = false;
                 }
                 else if(str.length()>=11) {
                     tv.setText(str);
@@ -68,9 +75,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String str=tv.getText().toString();
-                if (str.equals("0")){
+                if (numinit){
                     tv.setText("2");
                     historylog.append("2");
+                    numinit = false;
                 }
                 else if(str.length()>=11)
                     tv.setText(str);
@@ -86,9 +94,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String str=tv.getText().toString();
-                if (str.equals("0")) {
+                if (numinit) {
                     tv.setText("3");
                     historylog.append("3");
+                    numinit = false;
                 }
                 else if(str.length()>=11)
                     tv.setText(str);
@@ -104,9 +113,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String str=tv.getText().toString();
-                if (str.equals("0")) {
+                if (numinit) {
                     tv.setText("4");
                     historylog.append("4");
+                    numinit = false;
                 }
                 else if(str.length()>=11)
                     tv.setText(str);
@@ -122,9 +132,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String str=tv.getText().toString();
-                if (str.equals("0")) {
+                if (numinit) {
                     tv.setText("5");
                     historylog.append("5");
+                    numinit = false;
                 }
                 else if(str.length()>=11)
                     tv.setText(str);
@@ -140,9 +151,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String str=tv.getText().toString();
-                if (str.equals("0")) {
+                if (numinit) {
                     tv.setText("6");
                     historylog.append("6");
+                    numinit = false;
                 }
                 else if(str.length()>=11)
                     tv.setText(str);
@@ -158,9 +170,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String str=tv.getText().toString();
-                if (str.equals("0")) {
+                if (numinit) {
                     tv.setText("7");
                     historylog.append("7");
+                    numinit = false;
                 }
                 else if(str.length()>=11)
                     tv.setText(str);
@@ -176,9 +189,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String str=tv.getText().toString();
-                if (str.equals("0")) {
+                if (numinit) {
                     tv.setText("8");
                     historylog.append("8");
+                    numinit = false;
                 }
                 else if(str.length()>=11)
                     tv.setText(str);
@@ -194,9 +208,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String str=tv.getText().toString();
-                if (str.equals("0")) {
+                if (numinit) {
                     tv.setText("9");
                     historylog.append("9");
+                    numinit = false;
                 }
                 else if(str.length()>=11)
                     tv.setText(str);
@@ -268,26 +283,14 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        Button b_plus = findViewById(R.id.btn_plus);
-        b_plus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String str = tv.getText().toString();
-                Double n1 = Double.parseDouble(str);
-
-                String tmp_operator = "+";
-                historylog.append("\n+");
-                tv.setText("");
-            }
-        });
-
-
         Button b_clear= findViewById(R.id.btn_clear);
         b_clear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 tv.setText("0");
+                numinit = true;
                 historylog.append("\n(clear)\n");
+                op[0] = "";
             }
         });
 
@@ -305,7 +308,48 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+        Button b_plus = findViewById(R.id.btn_plus);
+        b_plus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String str = tv.getText().toString();
+                Double n1 = Double.parseDouble(str);
+                if (!op[0].equals("+"))
+                {
+                    historylog.append("\n+\n");
+                }
+                number[0]=n1;
+                op[0] = "+";
+                numinit = true;
+            }
+        });
+
+
+        Button b_equal = findViewById(R.id.btn_equal);
+        b_equal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String str = tv.getText().toString();
+                Double n1 = Double.parseDouble(str);
+                Double result = Double.parseDouble(str);
+                number[1] = n1;
+
+                switch (op[0]) {
+                    case "+": result = number[0] + number[1]; break;
+                }
+                tv.setText(result+"");
+                historylog.append("\n=" + result);
+                op[0]="";
+                numinit = true;
+
+            }
+        });
+
     }
+
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -327,4 +371,8 @@ public class MainActivity extends AppCompatActivity {
         }
         return true;
     }
+
+
+
+
 }
