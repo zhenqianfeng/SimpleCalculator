@@ -14,7 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
-
+    private static final int STRING_LENGTH_MAX=14;
     final StringBuilder historylog= new StringBuilder();
     Double[] number = new Double[2];
     Integer[] i = new Integer[2];
@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
                 String str=tv.getText().toString();
                 if (!numinit)
                 {
-                    if (str.length() >= 12) {
+                    if (str.length() >= STRING_LENGTH_MAX) {
                         tv.setText(str);
                         historylog.append(str);
                     } else if (!str.equals("0")) {
@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
                     historylog.append("1");
                     numinit = false;
                 }
-                else if(str.length()>=11) {
+                else if(str.length()>=STRING_LENGTH_MAX) {
                     tv.setText(str);
                 }
                 else {
@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
                     historylog.append("2");
                     numinit = false;
                 }
-                else if(str.length()>=11)
+                else if(str.length()>=STRING_LENGTH_MAX)
                     tv.setText(str);
                 else{
                     tv.setText(str + "2");
@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
                     historylog.append("3");
                     numinit = false;
                 }
-                else if(str.length()>=11)
+                else if(str.length()>=STRING_LENGTH_MAX)
                     tv.setText(str);
                 else{
                     tv.setText(str + "3");
@@ -118,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
                     historylog.append("4");
                     numinit = false;
                 }
-                else if(str.length()>=11)
+                else if(str.length()>=STRING_LENGTH_MAX)
                     tv.setText(str);
                 else{
                     tv.setText(str + "4");
@@ -137,7 +137,7 @@ public class MainActivity extends AppCompatActivity {
                     historylog.append("5");
                     numinit = false;
                 }
-                else if(str.length()>=11)
+                else if(str.length()>=STRING_LENGTH_MAX)
                     tv.setText(str);
                 else{
                     tv.setText(str + "5");
@@ -156,7 +156,7 @@ public class MainActivity extends AppCompatActivity {
                     historylog.append("6");
                     numinit = false;
                 }
-                else if(str.length()>=11)
+                else if(str.length()>=STRING_LENGTH_MAX)
                     tv.setText(str);
                 else{
                     tv.setText(str + "6");
@@ -175,7 +175,7 @@ public class MainActivity extends AppCompatActivity {
                     historylog.append("7");
                     numinit = false;
                 }
-                else if(str.length()>=11)
+                else if(str.length()>=STRING_LENGTH_MAX)
                     tv.setText(str);
                 else{
                     tv.setText(str + "7");
@@ -194,7 +194,7 @@ public class MainActivity extends AppCompatActivity {
                     historylog.append("8");
                     numinit = false;
                 }
-                else if(str.length()>=11)
+                else if(str.length()>=STRING_LENGTH_MAX)
                     tv.setText(str);
                 else{
                     tv.setText(str + "8");
@@ -213,7 +213,7 @@ public class MainActivity extends AppCompatActivity {
                     historylog.append("9");
                     numinit = false;
                 }
-                else if(str.length()>=11)
+                else if(str.length()>=STRING_LENGTH_MAX)
                     tv.setText(str);
                 else{
                     tv.setText(str + "9");
@@ -227,7 +227,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String str=tv.getText().toString();
-                if (str.contains(".")||str.length()>=11)
+                if (str.contains(".")||str.length()>=STRING_LENGTH_MAX)
                     tv.setText(str);
                 else{
                     tv.setText(str + ".");
@@ -241,6 +241,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String str=tv.getText().toString();
+                boolean neg = str.contains("-");
                 if (str.contains("-"))
                 {
                     str = str.substring(1);
@@ -264,19 +265,19 @@ public class MainActivity extends AppCompatActivity {
                 if (str.contains("."))
                 {
                     Double db = Double.parseDouble(str);
-                    resultstr = db*100+"";
+                    resultstr = db/100+"";
                 } else
                 {
                     Integer i = Integer.parseInt(str);
-                    resultstr = i*100+"";
+                    resultstr = i/100+"";
                 }
 
-                if (str.length()>11)
+                if (resultstr.length()>STRING_LENGTH_MAX)
                 {
-                    if (str.contains("-"))
-                        tv.setText( resultstr.substring(0,11));
+                    if (resultstr.contains("-"))
+                        tv.setText( resultstr.substring(0,STRING_LENGTH_MAX));
                     else
-                        tv.setText(resultstr.substring(0,10));
+                        tv.setText(resultstr.substring(0,STRING_LENGTH_MAX-1));
                 } else
                     tv.setText(resultstr);
             }
@@ -325,6 +326,55 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        Button b_minus = findViewById(R.id.btn_minus);
+        b_minus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String str = tv.getText().toString();
+                Double n1 = Double.parseDouble(str);
+                if (!op[0].equals("-"))
+                {
+                    historylog.append("\n-\n");
+                }
+                number[0]=n1;
+                op[0] = "-";
+                numinit = true;
+            }
+        });
+
+        Button b_multiply = findViewById(R.id.btn_multiply);
+        b_multiply.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String str = tv.getText().toString();
+                Double n1 = Double.parseDouble(str);
+                if (!op[0].equals("*"))
+                {
+                    historylog.append("\n*\n");
+                }
+                number[0]=n1;
+                op[0] = "*";
+                numinit = true;
+            }
+        });
+
+        Button b_divide = findViewById(R.id.btn_divide);
+        b_divide.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String str = tv.getText().toString();
+                Double n1 = Double.parseDouble(str);
+                if (!op[0].equals("/"))
+                {
+                    historylog.append("\n/\n");
+                }
+                number[0]=n1;
+                op[0] = "/";
+                numinit = true;
+            }
+        });
+
+
 
         Button b_equal = findViewById(R.id.btn_equal);
         b_equal.setOnClickListener(new View.OnClickListener() {
@@ -337,9 +387,16 @@ public class MainActivity extends AppCompatActivity {
 
                 switch (op[0]) {
                     case "+": result = number[0] + number[1]; break;
+                    case "-": result = number[0] - number[1]; break;
+                    case "*": result = number[0] * number[1]; break;
+                    case "/": result = number[0] / number[1]; break;
                 }
-                tv.setText(result+"");
-                historylog.append("\n=" + result);
+                String fullStr=result.toString();
+                int strLength=fullStr.length();
+                String displayStr=fullStr;
+                if (strLength>STRING_LENGTH_MAX) displayStr=fullStr.substring(0,STRING_LENGTH_MAX);
+                tv.setText(displayStr);
+                historylog.append("\n=" + displayStr);
                 op[0]="";
                 numinit = true;
 
@@ -347,8 +404,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
-
-
 
 
     @Override
@@ -371,8 +426,5 @@ public class MainActivity extends AppCompatActivity {
         }
         return true;
     }
-
-
-
 
 }
