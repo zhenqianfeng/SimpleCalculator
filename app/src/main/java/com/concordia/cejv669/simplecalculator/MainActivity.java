@@ -1,6 +1,5 @@
 package com.concordia.cejv669.simplecalculator;
 
-
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -413,6 +412,17 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+
+        menu.findItem(R.id.about).setVisible(true);
+        menu.findItem(R.id.history).setVisible(true);
+        menu.findItem(R.id.back).setVisible(false);
+
+        return super.onPrepareOptionsMenu(menu);
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
         int itemId=item.getItemId();
@@ -424,6 +434,17 @@ public class MainActivity extends AppCompatActivity {
             String test = historylog.toString();
             startActivity(i);
         }
+
+        if (itemId == R.id.about) {
+//            Toast.makeText(getApplicationContext(), "You Clicked on History", Toast.LENGTH_SHORT).show();
+            String aboutInfo = "sdfasfsafdsafdsafsadfdsafdsafsadf";
+            Intent i = new Intent(getApplicationContext(), About.class);
+            i.putExtra("AboutInfo",aboutInfo);
+            startActivity(i);
+        }
+
+
+
         return true;
     }
 
