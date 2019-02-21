@@ -380,9 +380,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String str = tv.getText().toString();
-                Double n1 = Double.parseDouble(str);
+                Double n2 = Double.parseDouble(str);
                 Double result = Double.parseDouble(str);
-                number[1] = n1;
+                number[1] = n2;
 
                 switch (op[0]) {
                     case "+": result = number[0] + number[1]; break;
