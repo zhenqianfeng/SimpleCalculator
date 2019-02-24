@@ -17,7 +17,7 @@
         android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text='Developer: Zhenqian Feng\n\nVersion: 1.0\n\nDescription:\nThis is a preliminary version of a simple calculator that can operate only two numbers. Please press "=" after enter two numbers.\n\n\n '
+        android:text='Developer: Zhenqian Feng\n\nVersion: 1.0\n\nDescription:\nThis is a preliminary version of a simple calculator that can operate only two numbers. Please press "=" after enter two numbers to get the result.\n\n\n '
         android:textSize="24sp" />
 
     <Button

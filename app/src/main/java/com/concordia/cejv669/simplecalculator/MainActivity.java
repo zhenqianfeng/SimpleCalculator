@@ -30,6 +30,10 @@ public class MainActivity extends AppCompatActivity {
         final TextView tv = findViewById(R.id.tv_display);
         final String operator = "";
 
+        final Button b_plus = findViewById(R.id.btn_plus);
+        final Button b_minus = findViewById(R.id.btn_minus);
+        final Button b_multiply = findViewById(R.id.btn_multiply);
+        final Button b_divide = findViewById(R.id.btn_divide);
 
         Button b0 = findViewById(R.id.btn_0);
         b0.setOnClickListener(new View.OnClickListener() {
@@ -45,6 +49,11 @@ public class MainActivity extends AppCompatActivity {
                         tv.setText(str + "0");
                         historylog.append(str + "0");
                     }
+                }
+                else
+                {
+                    tv.setText("0");
+                    historylog.append("0");
                 }
             }
         });
@@ -232,6 +241,13 @@ public class MainActivity extends AppCompatActivity {
                     tv.setText(str + ".");
                     historylog.append(".");
                 }
+                if(numinit) {
+                    if (str.contains("."))
+                    {tv.setText("0.");
+                    historylog.append("0.");}
+                    else tv.setText("0.");
+                }
+                numinit = false;
             }
         });
 
@@ -261,24 +277,20 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String str=tv.getText().toString();
                 String resultstr;
-                if (str.contains("."))
-                {
                     Double db = Double.parseDouble(str);
                     resultstr = db/100+"";
-                } else
-                {
-                    Integer i = Integer.parseInt(str);
-                    resultstr = i/100+"";
-                }
 
                 if (resultstr.length()>STRING_LENGTH_MAX)
                 {
                     if (resultstr.contains("-"))
-                        tv.setText( resultstr.substring(0,STRING_LENGTH_MAX));
+                        tv.setText(resultstr.substring(0,STRING_LENGTH_MAX));
                     else
                         tv.setText(resultstr.substring(0,STRING_LENGTH_MAX-1));
                 } else
                     tv.setText(resultstr);
+
+                historylog.append(resultstr);
+
             }
         });
 
@@ -300,74 +312,111 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String str=tv.getText().toString();
                 if (str.length() == 1 || (str.length()==2 && str.contains("-")))
+                {
                     tv.setText("0");
-                else if (str.substring(str.length()-2).contains("."))
-                    tv.setText(str.substring(0,str.length()-2));
-                else
+                    historylog.append("\n0\n");
+                }
+                else if (str.substring(str.length()-2).contains(".")) {
+                    tv.setText(str.substring(0, str.length() - 2));
+                    historylog.append(str.substring(0, str.length() - 2));
+                }
+                else {
                     tv.setText(str.substring(0,str.length()-1));
+                    historylog.append(str.substring(0, str.length() - 2));
+                }
+
             }
         });
 
 
-        Button b_plus = findViewById(R.id.btn_plus);
         b_plus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                clearButtonColor(b_plus,b_minus,b_multiply,b_divide);
+                b_plus.setTextColor(getResources().getColor(R.color.colorAccent));
                 String str = tv.getText().toString();
-                Double n1 = Double.parseDouble(str);
-                if (!op[0].equals("+"))
-                {
+                if (str.equals("Can't devide by 0")){
+                    number[0]=0.0;
+                    tv.setText("0");
                     historylog.append("\n+\n");
                 }
-                number[0]=n1;
+                else {
+                    Double n1 = Double.parseDouble(str);
+                    if (!op[0].equals("+")) {
+                        historylog.append("\n+\n");
+                    }
+                    number[0] = n1;
+                }
                 op[0] = "+";
                 numinit = true;
             }
         });
 
-        Button b_minus = findViewById(R.id.btn_minus);
+
         b_minus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                clearButtonColor(b_plus,b_minus,b_multiply,b_divide);
+                b_minus.setTextColor(getResources().getColor(R.color.colorAccent));
                 String str = tv.getText().toString();
-                Double n1 = Double.parseDouble(str);
-                if (!op[0].equals("-"))
-                {
+                if (str.equals("Can't devide by 0")){
+                    number[0]=0.0;
+                    tv.setText("0");
                     historylog.append("\n-\n");
                 }
-                number[0]=n1;
+                else {
+                    Double n1 = Double.parseDouble(str);
+                    if (!op[0].equals("-")) {
+                        historylog.append("\n-\n");
+                    }
+                    number[0] = n1;
+                }
                 op[0] = "-";
                 numinit = true;
             }
         });
 
-        Button b_multiply = findViewById(R.id.btn_multiply);
         b_multiply.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                clearButtonColor(b_plus,b_minus,b_multiply,b_divide);
+                b_multiply.setTextColor(getResources().getColor(R.color.colorAccent));
                 String str = tv.getText().toString();
-                Double n1 = Double.parseDouble(str);
-                if (!op[0].equals("*"))
-                {
+                if (str.equals("Can't devide by 0")){
+                    number[0]=0.0;
+                    tv.setText("0");
                     historylog.append("\n*\n");
                 }
-                number[0]=n1;
+                else {
+                    Double n1 = Double.parseDouble(str);
+                    if (!op[0].equals("*")) {
+                        historylog.append("\n*\n");
+                    }
+                    number[0] = n1;
+                }
                 op[0] = "*";
                 numinit = true;
             }
         });
 
-        Button b_divide = findViewById(R.id.btn_divide);
         b_divide.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                clearButtonColor(b_plus,b_minus,b_multiply,b_divide);
+                b_divide.setTextColor(getResources().getColor(R.color.colorAccent));
                 String str = tv.getText().toString();
-                Double n1 = Double.parseDouble(str);
-                if (!op[0].equals("/"))
-                {
+                if (str.equals("Can't devide by 0")){
+                    number[0]=0.0;
+                    tv.setText("0");
                     historylog.append("\n/\n");
                 }
-                number[0]=n1;
+                else {
+                    Double n1 = Double.parseDouble(str);
+                    if (!op[0].equals("/")) {
+                        historylog.append("\n/\n");
+                    }
+                    number[0] = n1;
+                }
                 op[0] = "/";
                 numinit = true;
             }
@@ -383,19 +432,28 @@ public class MainActivity extends AppCompatActivity {
                 Double n2 = Double.parseDouble(str);
                 Double result = Double.parseDouble(str);
                 number[1] = n2;
+                String displayStr="";
 
+                clearButtonColor(b_plus,b_minus,b_multiply,b_divide);
                 switch (op[0]) {
                     case "+": result = number[0] + number[1]; break;
                     case "-": result = number[0] - number[1]; break;
                     case "*": result = number[0] * number[1]; break;
-                    case "/": result = number[0] / number[1]; break;
+                    case "/": {
+                        if (number[1]!=0) result = number[0] / number[1];
+                        else displayStr="Can't devide by 0";
+                        break;
+                    }
                 }
-                String fullStr=result.toString();
-                int strLength=fullStr.length();
-                String displayStr=fullStr;
-                if (strLength>STRING_LENGTH_MAX) displayStr=fullStr.substring(0,STRING_LENGTH_MAX);
+                if (!displayStr.equals("Can't devide by 0")){
+                    String fullStr=result.toString();
+                    int strLength=fullStr.length();
+                    displayStr=fullStr;
+                    if (strLength>STRING_LENGTH_MAX) displayStr=fullStr.substring(0,STRING_LENGTH_MAX);
+                }
+
                 tv.setText(displayStr);
-                historylog.append("\n=" + displayStr);
+                historylog.append("\n=" + displayStr +"\n");
                 op[0]="";
                 numinit = true;
 
@@ -404,6 +462,13 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public void clearButtonColor( Button b1, Button b2, Button b3, Button b4) {
+
+        b1.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+        b2.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+        b3.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+        b4.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
