@@ -21,7 +21,7 @@ public class About extends AppCompatActivity {
 
         Intent intent = getIntent();
 
-        Button bt2 = findViewById(R.id.button2);
+        Button bt2 = findViewById(R.id.btn_email);
         bt2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
